@@ -38,6 +38,7 @@ namespace ExcelToExcel.Commands
 
         public bool CanExecute(object parameter)
         {
+            
             if (_canExecute == null)
                 return true;
 

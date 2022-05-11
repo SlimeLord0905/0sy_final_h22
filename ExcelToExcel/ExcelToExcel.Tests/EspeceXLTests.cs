@@ -82,7 +82,7 @@ namespace ExcelToExcel.Tests
         }
 
         [Theory]
-        [InlineData("invalide_fichier_type.txt")]
+        [MemberData(nameof(invalide_file_type))]
         public void LoadFile_ShouldFail_When_BadFile(string fn)
         {
             /// Arrange
@@ -101,7 +101,7 @@ namespace ExcelToExcel.Tests
 
         // TODO : Q05 : Créez le test « SaveCSV_BadFileName_Should_Fail »
         [Theory]
-        [InlineData("invalide_fichier_type.txt")]
+        [MemberData(nameof(invalide_file_type))]
         public void SaveCSV_BadFileName_Should_Fail(string fn)
         {
             var filename = Path.Combine(excelFilesPath, fn);
@@ -117,7 +117,7 @@ namespace ExcelToExcel.Tests
         }
         // xTODO : Q06 : Créez le test « SaveJson_BadFileName_Should_Fail »
         [Theory]
-        [InlineData("invalide_fichier_type.txt")]
+        [MemberData(nameof(invalide_file_type))]
         public void Savejson_BadFileName_Should_Fail(string fn)
         {
             var filename = Path.Combine(excelFilesPath, fn);
@@ -133,7 +133,7 @@ namespace ExcelToExcel.Tests
         }
         // TODO : Q07 : Créez le test « SaveXls_BadFileName_Should_Fail »
         [Theory]
-        [InlineData("invalide_fichier_type.txt")]
+        [MemberData(nameof(invalide_file_type))]
         public void SaveXls_BadFileName_Should_Fail(string fn)
         {
             var filename = Path.Combine(excelFilesPath, fn);
@@ -149,7 +149,7 @@ namespace ExcelToExcel.Tests
         }
 
         [Theory]
-        [InlineData("invalide_fichier.txt")]
+        [MemberData(nameof(invalide_file_type))]
         public void SaveToFile_BadFileName_Should_Fail(string fn)
         {
             var filename = Path.Combine(excelFilesPath, fn);
@@ -164,7 +164,21 @@ namespace ExcelToExcel.Tests
             Assert.Throws<ArgumentException>(act);
         }
 
+        [Theory]
+        [InlineData("invalide_fichier.txt")]
+        public void SaveToFile_BadExtension_Should_Fail(string fn)
+        {
+            var filename = Path.Combine(excelFilesPath, fn);
+            var especeXL = new EspeceXL(filename);
 
+            /// Act
+            /// 
+            Action act = () => especeXL.SaveToFile(filename);
+
+            /// Assert
+            /// 
+            Assert.Throws<ArgumentException>(act);
+        }
 
 
         public static IEnumerable<object[]> BadExcelFilesTestData = new List<object[]>
@@ -179,6 +193,13 @@ namespace ExcelToExcel.Tests
         {
             new object[] {"liste_especes.xlsx"},
             new object[] {"liste_especes_multifeuilles.xlsx"},
+        };
+
+
+        public static IEnumerable<object[]> invalide_file_type = new List<object[]>
+        {
+            new object[] {"invalide_fichier.txt"},
+            
         };
     }
 }

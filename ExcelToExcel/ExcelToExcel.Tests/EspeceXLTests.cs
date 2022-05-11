@@ -132,7 +132,21 @@ namespace ExcelToExcel.Tests
             Assert.Throws<ArgumentException>(act);
         }
         // TODO : Q07 : Créez le test « SaveXls_BadFileName_Should_Fail »
+        [Theory]
+        [InlineData("invalide_fichier_type.txt")]
+        public void SaveXls_BadFileName_Should_Fail(string fn)
+        {
+            var filename = Path.Combine(excelFilesPath, fn);
+            var especeXL = new EspeceXL(filename);
 
+            /// Act
+            /// 
+            Action act = () => especeXL.SaveXls(filename);
+
+            /// Assert
+            /// 
+            Assert.Throws<ArgumentException>(act);
+        }
         public static IEnumerable<object[]> BadExcelFilesTestData = new List<object[]>
         {
             new object[] {"Contenu_nom de peuplement.xlsx"},

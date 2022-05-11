@@ -151,7 +151,7 @@ namespace ExcelToExcel.Models
 
         public void SaveJson(string filename)
         {
-            /// TODO : Q06 Ajouter les validations pour passer les tests
+            /// xTODO : Q06 Ajouter les validations pour passer les tests
             /// 
             var ext = Path.GetExtension(filename).ToLower();
             if (ext == ".json")
@@ -195,10 +195,18 @@ namespace ExcelToExcel.Models
             }
         }
 
-        private void SaveXls(string filename)
+        public void SaveXls(string filename)
         {
             /// TODO : Q07 Ajouter les validations pour passer les tests
-            wb.SaveAs(filename);
+            var ext = Path.GetExtension(filename).ToLower();
+            if (ext == ".xlsx")
+            {
+                wb.SaveAs(filename);
+            }
+            else
+            {
+                throw new ArgumentException("Mauvais format de fichier!");
+            }
         }
     }
 }

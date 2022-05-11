@@ -141,9 +141,22 @@ namespace ExcelToExcel.ViewModels
         {
             /// TODO : S'assurer que les tests de la commande fonctionne
             /// 
-            if(FileContent != null)
+            if (!string.IsNullOrEmpty(obj))
             {
-                return true;
+                InputFilename = obj;
+            }
+
+            var fileExists = File.Exists(InputFilename);
+            if (FileContent != null)
+            {
+                if (!fileExists)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
             }
 
             return false;

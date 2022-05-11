@@ -133,12 +133,19 @@ namespace ExcelToExcel.Models
         {
             /// TODO : Q05 : Ajouter les validations pour passer les tests
             /// 
-
-            var output = GetCSV();
-
-            using (var writer = new StreamWriter(filename, false, System.Text.Encoding.UTF8))
+            var ext = Path.GetExtension(filename).ToLower();
+            if (ext == ".csv")
             {
-                writer.Write(output);
+                var output = GetCSV();
+
+                using (var writer = new StreamWriter(filename, false, System.Text.Encoding.UTF8))
+                {
+                    writer.Write(output);
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Mauvais format de fichier!");
             }
         }
 

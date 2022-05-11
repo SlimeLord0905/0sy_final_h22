@@ -100,7 +100,21 @@ namespace ExcelToExcel.Tests
         }
 
         // TODO : Q05 : Créez le test « SaveCSV_BadFileName_Should_Fail »
+        [Theory]
+        [InlineData("invalide_fichier_type.txt")]
+        public void SaveCSV_BadFileName_Should_Fail(string fn)
+        {
+            var filename = Path.Combine(excelFilesPath, fn);
+            var especeXL = new EspeceXL(filename);
 
+            /// Act
+            /// 
+            Action act = () => especeXL.SaveCSV(filename);
+
+            /// Assert
+            /// 
+            Assert.Throws<ArgumentException>(act);
+        }
         // TODO : Q06 : Créez le test « SaveJson_BadFileName_Should_Fail »
 
         // TODO : Q07 : Créez le test « SaveXls_BadFileName_Should_Fail »

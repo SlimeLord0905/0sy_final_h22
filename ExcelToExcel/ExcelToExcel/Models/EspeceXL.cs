@@ -176,22 +176,29 @@ namespace ExcelToExcel.Models
             /// TODO : Q08 Ajouter les validations pour passer les tests
             
             var ext = Path.GetExtension(filename).ToLower();
-
-            switch (ext)
+            var fileExists = File.Exists(filename);
+            if (fileExists)
             {
-                case ".csv":
-                    SaveCSV(filename);
-                    break;
-                case ".json":
-                    SaveJson(filename);
-                    break;
-                case ".xlsx":
-                    SaveXls(filename);
-                    break;
-                default:
-                    /// TODO : Q09 Lancer l'exception ArgumentException avec le message "Type inconnu" et le nom du paramètre filename
-                    /// 
-                    break;
+                switch (ext)
+                {
+                    case ".csv":
+                        SaveCSV(filename);
+                        break;
+                    case ".json":
+                        SaveJson(filename);
+                        break;
+                    case ".xlsx":
+                        SaveXls(filename);
+                        break;
+                    default:
+                        /// TODO : Q09 Lancer l'exception ArgumentException avec le message "Type inconnu" et le nom du paramètre filename
+                        /// 
+                        break;
+                }
+            }
+            else
+            {
+                throw new ArgumentException("Mauvais format de fichier!");
             }
         }
 

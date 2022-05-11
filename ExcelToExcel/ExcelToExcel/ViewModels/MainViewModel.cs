@@ -141,8 +141,12 @@ namespace ExcelToExcel.ViewModels
         {
             /// TODO : S'assurer que les tests de la commande fonctionne
             /// 
+            if(FileContent != null)
+            {
+                return true;
+            }
 
-            return !string.IsNullOrEmpty(InputFilename);
+            return false;
         }
 
         private void Save(string obj)
